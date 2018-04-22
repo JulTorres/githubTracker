@@ -17,11 +17,11 @@ public class GithubersServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        Githuber bruno = new Githuber("bru", "bruno64", "bruno@mail.com", "bruno", "http://www.bruno.html/bruno.png");
-        Githuber laurent = new Githuber("laur", "laurent64", "laurent@mail.com", "laurent", "http://www.laurent.html/laurent.png");
-        Githuber thomas = new Githuber("thom", "thomas64", "thomas@mail.com", "thomas", "http://www.thomas.html/thomas.png");
-        Githuber stephen = new Githuber("steph", "stephen64", "stephen@mail.com", "stephen", "http://www.stephen.html/stephen.png");
-        Githuber sebastien = new Githuber("sebas", "sebastien64", "sebastien@mail.com", "sebastien", "http://www.sebastien.html/sebastien.png");
+        Githuber bruno = new Githuber("bru", "@kobanogit", "bruno.michel77@gmail.com", "bruno", "https://avatars3.githubusercontent.com/u/19733351?s=400&v=4");
+        Githuber laurent = new Githuber("laur", "@loloof64", "laurent.bernabe@gmail.com", "laurent", "https://avatars3.githubusercontent.com/u/1826495?s=400&v=4");
+        Githuber thomas = new Githuber("thom", "@TomBtz", "contact@petitjeanthomas.fr", "thomas", "https://avatars.githubusercontent.com/TomBtz?s=460");
+        Githuber stephen = new Githuber("steph", "@devart64", "stephendupre64@gmail.com", "stephen", "https://avatars2.githubusercontent.com/u/21971807?s=400&v=4");
+        Githuber sebastien = new Githuber("sebas", "@sebaurel", "sebaurel@free.fr", "sebastien", "https://avatars.githubusercontent.com/sebaurel?s=460");
 
         List<Githuber> githubers = new ArrayList<>();
         githubers.add(bruno);
