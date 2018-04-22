@@ -15,7 +15,7 @@ import java.util.List;
 @WebServlet("/githubers")
 public class GithubersServlet extends HttpServlet {
 
-    public void init() throws ServletException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         Githuber bruno = new Githuber("bru", "bruno64", "bruno@mail.com", "bruno", "http://www.bruno.html/bruno.png");
         Githuber laurent = new Githuber("laur", "laurent64", "laurent@mail.com", "laurent", "http://www.laurent.html/laurent.png");
@@ -23,19 +23,15 @@ public class GithubersServlet extends HttpServlet {
         Githuber stephen = new Githuber("steph", "stephen64", "stephen@mail.com", "stephen", "http://www.stephen.html/stephen.png");
         Githuber sebastien = new Githuber("sebas", "sebastien64", "sebastien@mail.com", "sebastien", "http://www.sebastien.html/sebastien.png");
 
-        List<Githuber> githubers= Arrays.asList(bruno, laurent, thomas, stephen, sebastien);
+        List<Githuber> githubers = new ArrayList<>();
+        githubers.add(bruno);
+        githubers.add(laurent);
+        githubers.add(thomas);
+        githubers.add(stephen);
+        githubers.add(sebastien);
 
-        this.getServletContext().setAttribute("githubers", githubers);
-    }
-
-
- /*   protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }*/
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        this.getServletContext().getRequestDispatcher( "/WEB-INF/githubers.jsp" ).forward( request, response );
+        request.setAttribute("githubers", githubers);
+        this.getServletContext().getRequestDispatcher( "/githubers.jsp" ).forward( request, response );
 
     }
 
