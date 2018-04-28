@@ -1,5 +1,9 @@
 package fr.wildcodeschool.githubtracker.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Githuber {
 
     String id;
@@ -10,8 +14,9 @@ public class Githuber {
 
 
     /*
-     *  OVERLOADED CONSTRUCTOR
+     *  CONSTRUCTORS
      */
+    public Githuber() {}
 
     public Githuber(String id, String login, String email, String name, String avatarUrl) {
         this.id = id;

@@ -1,15 +1,20 @@
 package fr.wildcodeschool.githubtracker.service;
 
 import fr.wildcodeschool.githubtracker.dao.GithuberDAO;
+import fr.wildcodeschool.githubtracker.dao.MemoryGithuberDAO;
 import fr.wildcodeschool.githubtracker.model.Githuber;
 
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
 import java.util.List;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+@Dependent
 public class GithubersService {
+
     private GithuberDAO githuberDAO;
 
+    @Inject
     public GithubersService(GithuberDAO githuberDAO) {
         this.githuberDAO = githuberDAO;
     }
