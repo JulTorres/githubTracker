@@ -5,6 +5,7 @@ import fr.wildcodeschool.githubtracker.model.Githuber;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Default;
+import javax.inject.Inject;
 import java.net.URL;
 import java.io.IOException;
 import java.util.*;
@@ -13,8 +14,11 @@ import java.util.*;
 @ApplicationScoped
 @Default
 public class MemoryGithuberDAO implements GithuberDAO{
+
     private Map<String, Githuber> githuberMap = new HashMap<>();
     List<String> finalFive;
+    @Inject
+    private ObjectMapper objectMapper;
 
     @Override
     public List<Githuber> getGithubers() {
@@ -31,7 +35,6 @@ public class MemoryGithuberDAO implements GithuberDAO{
     }
 
     public Githuber parseGithuber(String login) {
-        ObjectMapper objectMapper = new ObjectMapper();
         String url = "https://api.github.com/users/" + login;
         Githuber githuber = null;
         try {
