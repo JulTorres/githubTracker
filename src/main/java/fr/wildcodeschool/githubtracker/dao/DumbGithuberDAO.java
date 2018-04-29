@@ -4,12 +4,10 @@ import fr.wildcodeschool.githubtracker.model.Githuber;
 
 import javax.enterprise.context.Dependent;
 import javax.enterprise.inject.Alternative;
-import javax.enterprise.inject.Default;
 import java.util.Arrays;
 import java.util.List;
 
-@Dependent
-@Alternative
+@Dependent //@Alternative
 public class DumbGithuberDAO implements GithuberDAO{
 
     private List<Githuber> githubers;
@@ -30,7 +28,4 @@ public class DumbGithuberDAO implements GithuberDAO{
         githubers.add(githuber);
     }
 
-    public Githuber parseGithuber(String login) {
-        return null;
-    }
 }

@@ -30,4 +30,3 @@
 
 <jsp:include page="nav.jsp" />
 
-<jsp:include page="header.jsp" />

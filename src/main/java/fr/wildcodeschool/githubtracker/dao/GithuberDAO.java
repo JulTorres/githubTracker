@@ -9,6 +9,4 @@ public interface GithuberDAO {
 
     void saveGithuber(Githuber githuber);
 
-    Githuber parseGithuber(String login);
-
 }

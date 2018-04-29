@@ -19,11 +19,8 @@ public class GithubersServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         request.setAttribute("githubers", githubersService.getAllGithubers());
-
         this.getServletContext().getRequestDispatcher( "/githubers.jsp" ).forward( request, response );
-
     }
 
 }
