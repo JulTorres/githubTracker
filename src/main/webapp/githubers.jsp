@@ -25,13 +25,13 @@
                         <div class="col-md-3 col-xs-6">
                             <div class="team-item">
                                 <div class="team-image">
-                                    <img src="${githuber.getAvatarUrl()}" class="img-responsive" alt="author">
+                                    <img src="${githuber.getAvatar_url()}" class="img-responsive" alt="author">
                                 </div>
                                 <div class="team-text">
                                     <h3><c:out value="${githuber.getName()}" /></h3>
-                                    <div class="team-location"><c:out value="${githuber.getLogin()}" /></div>
+                                    <div class="team-location"><c:out value="${githuber.getId()}" /></div>
                                     <div class="team-position"><c:out value="${githuber.getEmail()}" /></div>
-                                    <p>Mida sit una namet, cons uectetur adipiscing adon elit. Aliquam vitae barasa droma.</p>
+                                    <p><c:out value="${githuber.getBio()}" /></p>
                                 </div>
                             </div>
                         </div>

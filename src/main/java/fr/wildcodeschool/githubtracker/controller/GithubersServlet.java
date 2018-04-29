@@ -1,11 +1,8 @@
 package fr.wildcodeschool.githubtracker.controller;
 
-import fr.wildcodeschool.githubtracker.dao.DumbGithuberDAO;
-import fr.wildcodeschool.githubtracker.dao.GithuberDAO;
 import fr.wildcodeschool.githubtracker.service.GithubersService;
 
 import javax.inject.Inject;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,25 +16,10 @@ public class GithubersServlet extends HttpServlet {
 
     @Inject
     private GithubersService githubersService;
-/*
-    private ServletConfig cfg;
-    private GithuberDAO gdao;
-
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        cfg = config;
-        //gdao = new DumbGithuberDAO();
-        //githubersService = new GithubersService(gdao);
-    }
-
-    public ServletConfig getServletConfig() {
-        return cfg;
-    }*/
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        //request.setAttribute("githubers", gdao.getGithubers());
         request.setAttribute("githubers", githubersService.getAllGithubers());
 
         this.getServletContext().getRequestDispatcher( "/githubers.jsp" ).forward( request, response );

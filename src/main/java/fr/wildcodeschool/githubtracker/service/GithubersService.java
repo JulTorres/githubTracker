@@ -1,7 +1,6 @@
 package fr.wildcodeschool.githubtracker.service;
 
 import fr.wildcodeschool.githubtracker.dao.GithuberDAO;
-import fr.wildcodeschool.githubtracker.dao.MemoryGithuberDAO;
 import fr.wildcodeschool.githubtracker.model.Githuber;
 
 import javax.enterprise.context.Dependent;
