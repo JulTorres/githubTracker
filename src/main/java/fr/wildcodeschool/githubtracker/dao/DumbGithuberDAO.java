@@ -29,4 +29,8 @@ public class DumbGithuberDAO implements GithuberDAO{
     public void saveGithuber(Githuber githuber) throws UnsupportedOperationException {
         githubers.add(githuber);
     }
+
+    public Githuber parseGithuber(String login) {
+        return null;
+    }
 }

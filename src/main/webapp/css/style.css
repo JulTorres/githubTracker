@@ -245,6 +245,15 @@ header .intro-text .intro-heading {
 }
 
 /*--------------------
+4.0. Tracker-form
+ -------------------*/
+
+.tracker-form {
+    width: 50%;
+    margin: auto;
+}
+
+/*--------------------
 4.1. About
 --------------------*/
 

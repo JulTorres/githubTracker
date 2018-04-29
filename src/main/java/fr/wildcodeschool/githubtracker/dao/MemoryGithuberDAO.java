@@ -31,7 +31,9 @@ public class MemoryGithuberDAO implements GithuberDAO{
 
     @Override
     public void saveGithuber(Githuber githuber) {
-        githuberMap.put(githuber.getLogin(), githuber);
+        if (githuber != null) {
+            githuberMap.put(githuber.getLogin(), githuber);
+        }
     }
 
     public Githuber parseGithuber(String login) {
