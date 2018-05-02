@@ -6,7 +6,7 @@
 
 <div class="container" class="z-depth-1">
 
-    <div class="row">
+    <div class="row track">
         <div class="col-lg-12 text-center">
             <div class="section-title">
                 <h2>Track!!</h2>

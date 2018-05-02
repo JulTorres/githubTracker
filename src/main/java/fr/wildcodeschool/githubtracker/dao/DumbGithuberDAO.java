@@ -3,11 +3,10 @@ package fr.wildcodeschool.githubtracker.dao;
 import fr.wildcodeschool.githubtracker.model.Githuber;
 
 import javax.enterprise.context.Dependent;
-import javax.enterprise.inject.Alternative;
 import java.util.Arrays;
 import java.util.List;
 
-@Dependent //@Alternative
+@Dependent
 public class DumbGithuberDAO implements GithuberDAO{
 
     private List<Githuber> githubers;

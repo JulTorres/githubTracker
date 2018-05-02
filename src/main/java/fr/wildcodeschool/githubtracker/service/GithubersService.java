@@ -7,7 +7,7 @@ import fr.wildcodeschool.githubtracker.model.Githuber;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @Dependent
 public class GithubersService {
