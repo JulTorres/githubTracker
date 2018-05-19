@@ -6,6 +6,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.util.*;
+import java.sql.*;
 
 
 @ApplicationScoped
@@ -14,6 +15,10 @@ public class MemoryGithuberDAO implements GithuberDAO{
 
     private Map<String, Githuber> githuberMap = new HashMap<>();
     List<String> initialPopulation;
+
+    // JDBC driver name and database URL
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static final String DB_URL = "jdbc:mysql://localhost:3306/githubtracker";
 
     @Inject
     GithubUtils githubUtils;
