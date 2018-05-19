@@ -1,4 +1,4 @@
-package fr.wildcodeschool.githubtracker.dao;
+package fr.wildcodeschool.githubtracker.helpers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import fr.wildcodeschool.githubtracker.model.Githuber;
