@@ -13,15 +13,12 @@ import java.util.List;
 @Dependent
 public class GithubersService {
 
+    @Inject @InMemory
     private GithuberDAO githuberDAO;
 
-/*    @Inject
-    GithubUtils githubUtils;*/
-
     @Inject
-    public GithubersService(@InMemory GithuberDAO githuberDAO) {
-        this.githuberDAO = githuberDAO;
-    }
+    GithubUtils githubUtils;
+
 
     public List<Githuber> getAllGithubers() {
         return githuberDAO.getGithubers();
@@ -37,8 +34,8 @@ public class GithubersService {
         return wantedGithuber == null ? null : wantedGithuber;
     }*/
 
-/*    public void track(String login) {
+    public void track(String login) {
         githuberDAO.saveGithuber(githubUtils.parseGithuber(login));
-    }*/
+    }
 
 }

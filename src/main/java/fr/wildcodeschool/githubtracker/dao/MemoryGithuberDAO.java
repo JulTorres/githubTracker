@@ -19,19 +19,12 @@ public class MemoryGithuberDAO implements GithuberDAO{
     static final String USER = "root";
     static final String PASS = "root";
 
-    //Map<String, Githuber> githubers = new HashMap<>();
-    //List<String> initialPopulation;
-
     @Inject
     private GithubUtils githubUtils;
 
     @Override
     public List<Githuber> getGithubers() {
         List<Githuber> githubers = new ArrayList<>();
-
-/*        for (Map.Entry<String, Githuber> entry: this.githubers.entrySet()) {
-            githubers.add(entry.getValue());
-        }*/
 
         Connection conn = null;
         Statement stmt = null;
@@ -55,17 +48,7 @@ public class MemoryGithuberDAO implements GithuberDAO{
                 String bio = rs.getString("bio");
                 String location = rs.getString("location");
                 String avatarUrl = rs.getString("avatar_url");
-                /*
-                id_githuber
-                github_id
-                name
-                login
-                url
-                email
-                bio
-                location
-                avatar_url
-  */
+
                 Githuber githuber = new Githuber(githubId, name, login, url, email, bio, location, avatarUrl);
                 githubers.add(githuber);
             }
@@ -98,10 +81,6 @@ public class MemoryGithuberDAO implements GithuberDAO{
     @Override
     public void saveGithuber(Githuber githuber) {
         if (githuber != null) {
-/*            githubers.put(githuber.getLogin(), githuber);
-        }
-    }*/
-
             Connection conn = null;
             PreparedStatement stmt = null;
 
@@ -124,9 +103,7 @@ public class MemoryGithuberDAO implements GithuberDAO{
                 stmt.setString(6, githuber.getLocation());
                 stmt.setString(7, githuber.getAvatar_url());
 
-
                 stmt.executeUpdate();
-
                 stmt.close();
                 conn.close();
 
@@ -153,13 +130,5 @@ public class MemoryGithuberDAO implements GithuberDAO{
     public Githuber getGithuberById(Integer id) {
         return null;
     }
-
-/*    @PostConstruct
-    private void init() {
-        this.initialPopulation = Arrays.asList("kobanogit", "loloof64", "TomBtz", "devart64", "sebaurel");
-        for (String login: initialPopulation) {
-            saveGithuber(githubUtils.parseGithuber(login));
-        }
-    }*/
 
 }

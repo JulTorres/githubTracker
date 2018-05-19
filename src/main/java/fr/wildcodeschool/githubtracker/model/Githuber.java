@@ -3,7 +3,6 @@ package fr.wildcodeschool.githubtracker.model;
 
 public class Githuber {
 
-    //Integer id;
     Integer id;
     Integer github_id;
     String name;
