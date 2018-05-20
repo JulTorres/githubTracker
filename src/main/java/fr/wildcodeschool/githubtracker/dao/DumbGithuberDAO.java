@@ -27,4 +27,6 @@ public class DumbGithuberDAO implements GithuberDAO{
         githubers.add(githuber);
     }
 
+    @Override
+    public void deleteGithuber(Integer githuber) {}
 }

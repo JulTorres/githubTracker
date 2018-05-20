@@ -10,28 +10,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
-@WebServlet(name = "TrackServlet", urlPatterns = "/track")
-public class TrackServlet extends HttpServlet {
+@WebServlet(name = "UntrackServlet", urlPatterns = "/untrack")
+public class UntrackServlet extends HttpServlet {
 
     @Inject
     private GithubersService githubersService;
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String login = request.getParameter("LOGIN");
-        boolean tracked = githubersService.track(login);
-        if (tracked) {
-            response.sendRedirect("/GithubTracker/githubers");
-        } else {
-            request.setAttribute("githuberNotFound", "Sorry but github doesn't seem to know this person...");
-            this.getServletContext().getRequestDispatcher( "/track.jsp" ).forward( request, response );
+        Integer idGithuber = Integer.parseInt(request.getParameter("untrack"));
+
+        if (idGithuber != null) {
+            githubersService.untrack(idGithuber);
         }
+        response.sendRedirect("/GithubTracker/githubers");
     }
 
-    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher( "/track.jsp" ).forward( request, response );
-    }
 
+    }
 }

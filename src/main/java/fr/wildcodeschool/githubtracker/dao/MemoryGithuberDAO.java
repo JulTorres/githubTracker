@@ -40,6 +40,7 @@ public class MemoryGithuberDAO implements GithuberDAO{
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()) {
+                Integer idGithuber = rs.getInt("id_githuber");
                 Integer githubId = rs.getInt("github_id");
                 String name = rs.getString("name");
                 String login = rs.getString("login");
@@ -49,7 +50,7 @@ public class MemoryGithuberDAO implements GithuberDAO{
                 String location = rs.getString("location");
                 String avatarUrl = rs.getString("avatar_url");
 
-                Githuber githuber = new Githuber(githubId, name, login, url, email, bio, location, avatarUrl);
+                Githuber githuber = new Githuber(idGithuber, githubId, name, login, url, email, bio, location, avatarUrl);
                 githubers.add(githuber);
             }
 
@@ -91,10 +92,10 @@ public class MemoryGithuberDAO implements GithuberDAO{
 
                 String sql;
 //                sql = "INSERT INTO githuber (`github_id`, `name`, `login`, `url`, `email`, `bio`, `location`, `avatar_url`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-                sql = "INSERT INTO githuber (`name`, `login`, `url`, `email`, `bio`, `location`, `avatar_url`) VALUES (?, ?, ?, ?, ?, ?, ?);";
+//                sql = "INSERT INTO githuber (`name`, `login`, `url`, `email`, `bio`, `location`, `avatar_url`, `github_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+                sql = "INSERT INTO githuber (`name`, `login`, `url`, `email`, `bio`, `location`, `avatar_url`) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 stmt = conn.prepareStatement(sql);
 
-                //stmt.setInt(1, githuber.getGithub_id());
                 stmt.setString(1, githuber.getName());
                 stmt.setString(2, githuber.getLogin());
                 stmt.setString(3, githuber.getUrl());
@@ -102,6 +103,7 @@ public class MemoryGithuberDAO implements GithuberDAO{
                 stmt.setString(5, githuber.getBio());
                 stmt.setString(6, githuber.getLocation());
                 stmt.setString(7, githuber.getAvatar_url());
+                //stmt.setInt(8, githuber.getGithub_id());
 
                 stmt.executeUpdate();
                 stmt.close();
@@ -131,4 +133,43 @@ public class MemoryGithuberDAO implements GithuberDAO{
         return null;
     }
 
+    @Override
+    public void deleteGithuber(Integer idGithuber) {
+        Connection conn = null;
+        PreparedStatement stmt = null;
+
+        try{
+            Class<?> driverClass = Class.forName(JDBC_DRIVER);
+            Driver driverInstance = (Driver) driverClass.newInstance();
+            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+
+            String sql;
+            sql = "DELETE FROM githuber WHERE id_githuber = ? ";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, idGithuber);
+
+            stmt.executeUpdate();
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if(stmt!=null)
+                    stmt.close();
+            } catch (SQLException se2) {
+            }
+            try{
+                if(conn!=null)
+                    conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+    }
+
 }
+

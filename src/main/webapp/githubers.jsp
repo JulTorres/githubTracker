@@ -33,6 +33,9 @@
                                     <div class="team-position"><c:out value="${githuber.getEmail()}" /></div>
                                     <p><c:out value="${githuber.getBio()}" /></p>
                                 </div>
+                                <form method="post" action="untrack">
+                                    <button class="btn btn-secondary" type="submit" name="untrack" value="${githuber.getId()}">Untrack</button>
+                                </form>
                             </div>
                         </div>
                         <!-- end team member item -->

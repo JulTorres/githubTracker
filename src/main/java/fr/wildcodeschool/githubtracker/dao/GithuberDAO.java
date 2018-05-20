@@ -9,4 +9,6 @@ public interface GithuberDAO {
 
     void saveGithuber(Githuber githuber);
 
+    void deleteGithuber(Integer githuber);
+
 }

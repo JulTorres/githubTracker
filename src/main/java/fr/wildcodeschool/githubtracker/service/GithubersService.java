@@ -34,8 +34,19 @@ public class GithubersService {
         return wantedGithuber == null ? null : wantedGithuber;
     }*/
 
-    public void track(String login) {
-        githuberDAO.saveGithuber(githubUtils.parseGithuber(login));
+    public boolean track(String login) {
+        Githuber githuber = new Githuber();
+        githuber = githubUtils.parseGithuber(login);
+        if(githuber == null) {
+            return false;
+        } else {
+            githuberDAO.saveGithuber(githuber);
+            return true;
+        }
+    }
+
+    public void untrack(Integer idGithuber) {
+        githuberDAO.deleteGithuber(idGithuber);
     }
 
 }

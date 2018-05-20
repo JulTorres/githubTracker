@@ -5,8 +5,8 @@
 
         <!-- Bootstrap core JavaScript -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-        <script src="js/jquery.easing.min.js"></script>
-        <script src="js/jquery.appear.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.appear/0.4.0/jquery.appear.min.js"></script>
         <script src="js/bootstrap.min.js"></script>
         <script src="js/owl.carousel.min.js"></script>
         <script src="js/cbpAnimatedHeader.js"></script>
