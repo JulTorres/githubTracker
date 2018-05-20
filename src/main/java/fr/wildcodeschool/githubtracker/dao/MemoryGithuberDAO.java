@@ -3,8 +3,10 @@ package fr.wildcodeschool.githubtracker.dao;
 import fr.wildcodeschool.githubtracker.helpers.GithubUtils;
 import fr.wildcodeschool.githubtracker.model.Githuber;
 
+import javax.annotation.Resource;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.sql.DataSource;
 import java.sql.*;
 import java.util.*;
 
@@ -13,16 +15,19 @@ import java.util.*;
 @InMemory
 public class MemoryGithuberDAO implements GithuberDAO{
 
-    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+/*    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static final String DB_URL = "jdbc:mysql://localhost:3306/githubtracker";
     static final String USER = "root";
-    static final String PASS = "root";
+    static final String PASS = "root";*/
+
+    @Resource(lookup = "GithubTrackerJNDI")
+    private DataSource dataSource;
 
     @Override
     public List<Githuber> getGithubers() {
         List<Githuber> githubers = new ArrayList<>();
 
-        try (Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+        try (Connection conn = dataSource.getConnection();
                 Statement stmt = conn.createStatement()){
 
             String sql = "SELECT * FROM githuber";
@@ -57,7 +62,7 @@ public class MemoryGithuberDAO implements GithuberDAO{
 //          sql = "INSERT INTO githuber (`github_id`, `name`, `login`, `url`, `email`, `bio`, `location`, `avatar_url`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 //          sql = "INSERT INTO githuber (`name`, `login`, `url`, `email`, `bio`, `location`, `avatar_url`, `github_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-            try(Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            try(Connection conn = dataSource.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {
 
                 stmt.setString(1, githuber.getName());
@@ -81,7 +86,7 @@ public class MemoryGithuberDAO implements GithuberDAO{
     public void deleteGithuber(Integer idGithuber) {
         String sql = "DELETE FROM githuber WHERE id_githuber = ? ";
 
-        try(Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+        try(Connection conn = dataSource.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, idGithuber);
