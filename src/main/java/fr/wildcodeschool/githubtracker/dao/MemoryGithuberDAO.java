@@ -3,7 +3,6 @@ package fr.wildcodeschool.githubtracker.dao;
 import fr.wildcodeschool.githubtracker.helpers.GithubUtils;
 import fr.wildcodeschool.githubtracker.model.Githuber;
 
-import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.sql.*;
@@ -19,24 +18,14 @@ public class MemoryGithuberDAO implements GithuberDAO{
     static final String USER = "root";
     static final String PASS = "root";
 
-    @Inject
-    private GithubUtils githubUtils;
-
     @Override
     public List<Githuber> getGithubers() {
         List<Githuber> githubers = new ArrayList<>();
 
-        Connection conn = null;
-        Statement stmt = null;
+        try (Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+                Statement stmt = conn.createStatement()){
 
-        try{
-            Class<?> driverClass = Class.forName(JDBC_DRIVER);
-            Driver driverInstance = (Driver) driverClass.newInstance();
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-            stmt = conn.createStatement();
-            String sql;
-            sql = "SELECT * FROM githuber";
+            String sql = "SELECT * FROM githuber";
             ResultSet rs = stmt.executeQuery(sql);
 
             while(rs.next()) {
@@ -53,48 +42,23 @@ public class MemoryGithuberDAO implements GithuberDAO{
                 Githuber githuber = new Githuber(idGithuber, githubId, name, login, url, email, bio, location, avatarUrl);
                 githubers.add(githuber);
             }
-
             rs.close();
-            stmt.close();
-            conn.close();
 
         } catch (SQLException se) {
             se.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if(stmt!=null)
-                    stmt.close();
-            } catch (SQLException se2) {
-            }
-            try{
-                if(conn!=null)
-                    conn.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
         }
-
         return githubers;
     }
 
     @Override
     public void saveGithuber(Githuber githuber) {
         if (githuber != null) {
-            Connection conn = null;
-            PreparedStatement stmt = null;
+            String sql = "INSERT INTO githuber (`name`, `login`, `url`, `email`, `bio`, `location`, `avatar_url`) VALUES (?, ?, ?, ?, ?, ?, ?)";
+//          sql = "INSERT INTO githuber (`github_id`, `name`, `login`, `url`, `email`, `bio`, `location`, `avatar_url`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+//          sql = "INSERT INTO githuber (`name`, `login`, `url`, `email`, `bio`, `location`, `avatar_url`, `github_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-            try{
-                Class<?> driverClass = Class.forName(JDBC_DRIVER);
-                Driver driverInstance = (Driver) driverClass.newInstance();
-                conn = DriverManager.getConnection(DB_URL,USER,PASS);
-
-                String sql;
-//                sql = "INSERT INTO githuber (`github_id`, `name`, `login`, `url`, `email`, `bio`, `location`, `avatar_url`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-//                sql = "INSERT INTO githuber (`name`, `login`, `url`, `email`, `bio`, `location`, `avatar_url`, `github_id`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
-                sql = "INSERT INTO githuber (`name`, `login`, `url`, `email`, `bio`, `location`, `avatar_url`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                stmt = conn.prepareStatement(sql);
+            try(Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
 
                 stmt.setString(1, githuber.getName());
                 stmt.setString(2, githuber.getLogin());
@@ -106,69 +70,31 @@ public class MemoryGithuberDAO implements GithuberDAO{
                 //stmt.setInt(8, githuber.getGithub_id());
 
                 stmt.executeUpdate();
-                stmt.close();
-                conn.close();
 
             } catch (SQLException se) {
                 se.printStackTrace();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                try {
-                    if(stmt!=null)
-                        stmt.close();
-                } catch (SQLException se2) {
-                }
-                try{
-                    if(conn!=null)
-                        conn.close();
-                } catch (SQLException se) {
-                    se.printStackTrace();
-                }
             }
         }
-    }
-
-    public Githuber getGithuberById(Integer id) {
-        return null;
     }
 
     @Override
     public void deleteGithuber(Integer idGithuber) {
-        Connection conn = null;
-        PreparedStatement stmt = null;
+        String sql = "DELETE FROM githuber WHERE id_githuber = ? ";
 
-        try{
-            Class<?> driverClass = Class.forName(JDBC_DRIVER);
-            Driver driverInstance = (Driver) driverClass.newInstance();
-            conn = DriverManager.getConnection(DB_URL,USER,PASS);
+        try(Connection conn = DriverManager.getConnection(DB_URL,USER,PASS);
+            PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-            String sql;
-            sql = "DELETE FROM githuber WHERE id_githuber = ? ";
-            stmt = conn.prepareStatement(sql);
             stmt.setInt(1, idGithuber);
-
             stmt.executeUpdate();
-            stmt.close();
-            conn.close();
 
         } catch (SQLException se) {
             se.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if(stmt!=null)
-                    stmt.close();
-            } catch (SQLException se2) {
-            }
-            try{
-                if(conn!=null)
-                    conn.close();
-            } catch (SQLException se) {
-                se.printStackTrace();
-            }
         }
+    }
+
+    public Githuber getGithuberById(Integer id) {
+        // TODO
+        return null;
     }
 
 }
